@@ -60,13 +60,7 @@ public class BankAccount
         var withdrawal = new Transaction(-amount, date, note);
         _allTransactions.Add(withdrawal);
     }
-    //public void listofTransaction()
-    //{
-    //    foreach (var listoftrans in _allTransactions)
-    //    {
-    //        Console.WriteLine(listoftrans);
-    //    }
-    //}
+
     public string GetAccountHistory()
     {
         var report = new StringBuilder();
