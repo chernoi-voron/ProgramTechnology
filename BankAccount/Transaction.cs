@@ -1,7 +1,7 @@
 ﻿
 namespace Bank;
 
-internal record Transaction(decimal Amount, DateTime Date, string Note); // record - Состояние объектов этого класса нельзя изменить
+public record Transaction(decimal Amount, DateTime Date, string Note); // record - Состояние объектов этого класса нельзя изменить
 
 //internal record Transaction
 //{
