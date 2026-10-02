@@ -1,10 +1,13 @@
 ﻿
 
 using Bank;
+using System.Text;
 
-namespace BankAccount;
+namespace BankAccount2;
 
-internal class BankAccount
+// BankAccount - потомок класс object => можно переопределить 
+// виртуальные методы находящиеся в object
+public class BankAccount
 {
     static private int s_accountNumberSeed = 1000000000;
     public string Number { get; }
@@ -57,11 +60,45 @@ internal class BankAccount
         var withdrawal = new Transaction(-amount, date, note);
         _allTransactions.Add(withdrawal);
     }
-    public void listofTransaction()
+    //public void listofTransaction()
+    //{
+    //    foreach (var listoftrans in _allTransactions)
+    //    {
+    //        Console.WriteLine(listoftrans);
+    //    }
+    //}
+    public string GetAccountHistory()
     {
-        foreach (var listoftrans in _allTransactions)
+        var report = new StringBuilder();
+
+        decimal balance = 0;
+        report.AppendLine("Data\t\tAmount\tBalance\tNote");
+        foreach (var item in _allTransactions)
         {
-            Console.WriteLine(listoftrans);
+            balance += item.Amount;
+            report.AppendLine($"" +
+                $"{item.Date.ToShortDateString()}\t" +
+                $"{item.Amount}\t{balance}\t{item.Note}");
         }
+        return report.ToString();
     }
+
+
+    //Ключевое слово virtual позволяет в дочернем классе
+    //предоставить другую реализацию
+    //метода PerformMonthAndTransactions
+    public virtual void PerformMonthAndTransactions()
+    {
+
+    }
+
+    // переопределяем метод, который унаследовали от object
+    // этот метод должен возвращать строку с состоянием объекта
+    //public override string ToString()
+    //{
+    //    return $"Type:{GetType().Name} Owner: {Owner}\tNumber of account:{Number}";
+    //}
+    public override string ToString()
+    
+       => $"Type: {GetType().Name}\t Owner: {Owner}\tNumber of account:{Number}";
 }

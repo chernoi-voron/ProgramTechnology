@@ -17,3 +17,4 @@ internal record Transaction(decimal Amount, DateTime Date, string Note); // reco
 //        this.Date = Date;
 //    }
 //}
+
