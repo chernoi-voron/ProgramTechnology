@@ -9,6 +9,7 @@ namespace BankAccount2;
 // виртуальные методы находящиеся в object
 public class BankAccount
 {
+    private readonly decimal _minimumbalance;
     static private int s_accountNumberSeed = 1000000000;
     public string Number { get; }
     public string Owner { get; private set; }
@@ -28,11 +29,16 @@ public class BankAccount
 
     private List<Transaction> _allTransactions = new List<Transaction>();
 
-    public BankAccount(string owner, decimal initialBalance)
+    public BankAccount(string owner, decimal initialBalance): this(owner, initialBalance, 0) { }
+    public BankAccount(string owner, decimal initialBalance, decimal minimumbalance)
     {
        
         Owner = owner; //this.Owner = name
-        MakeDeposit( initialBalance,DateTime.UtcNow, "Initial balance");
+        _minimumbalance = minimumbalance;
+        if (initialBalance < 0) 
+        {
+            MakeDeposit(initialBalance, DateTime.UtcNow, "Initial balance");
+        }
         Number = s_accountNumberSeed.ToString();
         s_accountNumberSeed++;
     }
@@ -48,18 +54,26 @@ public class BankAccount
     }
     public void MakeWithdrawal(decimal amount, DateTime date, string note)
     {
-        if(amount <= 0)
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(amount);
+        Transaction? overdraftTransaction = CheckWithDrawalLimit(Balance- amount < _minimumbalance);
+        Transaction? withdrawal = new Transaction(-amount, date, note);
+        _allTransactions.Add(withdrawal);
+
+        if (overdraftTransaction != null) 
         {
-            throw new ArgumentOutOfRangeException(nameof(amount), "Amount of withdrawal must be positive");
+            _allTransactions.Add(overdraftTransaction);       
         }
-        if(Balance  < amount)
+    }
+
+    protected Transaction? CheckWithDrawalLimit(bool v)
+    {
+        if(v)
         {
             throw new InvalidOperationException("Not sufficient rubls for this withdrawal");
         }
-
-        var withdrawal = new Transaction(-amount, date, note);
-        _allTransactions.Add(withdrawal);
+        return default;
     }
+
     //public void listofTransaction()
     //{
     //    foreach (var listoftrans in _allTransactions)
