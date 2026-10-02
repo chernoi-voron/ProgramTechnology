@@ -39,6 +39,15 @@ namespace BankAccount2
             Console.WriteLine(interestEarning);// == Console.WriteLine(interestEarning.ToString());
             Console.WriteLine(interestEarning.GetAccountHistory());
 
+            GiftCardAccount cardAccount = new("No me", 1000m,5000m);
+            cardAccount.MakeDeposit(100m, DateTime.UtcNow, " (* *)");
+            cardAccount.MakeWithdrawal(10m, DateTime.UtcNow, " (&_ &_)");
+            cardAccount.PerformMonthAndTransactions();
+
+            Console.WriteLine(cardAccount);
+            Console.WriteLine(cardAccount.GetAccountHistory);
+
+
         }
     }
 
