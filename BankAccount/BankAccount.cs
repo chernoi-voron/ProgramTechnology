@@ -7,13 +7,31 @@ namespace BankAccount2;
 
 // BankAccount - потомок класс object => можно переопределить 
 // виртуальные методы находящиеся в object
+/// <summary>
+/// Класс банка предопределяющий его работу
+/// </summary>
 public class BankAccount
 {
+    /// <summary>
+    /// Минимальный баланс
+    /// </summary>
     private readonly decimal _minimumbalance;
+    /// <summary>
+    /// Номер с которого начинается отсчёт id аккаунта
+    /// </summary>
     static private int s_accountNumberSeed = 1000000000;
+    /// <summary>
+    /// Номер задаваемый клиентом
+    /// </summary>
     public string Number { get; }
+    /// <summary>
+    /// Имя владельца счёта
+    /// </summary>
     public string Owner { get; private set; }
-
+    
+    /// <summary>
+    /// Баланс аккаунта
+    /// </summary>
     public decimal Balance 
     { 
         get
@@ -26,23 +44,47 @@ public class BankAccount
             return balance;
         }
     }
+    /// <summary>
+    /// Статус клиента банка
+    /// </summary>
+    public string Status { get; private set; } = "Unknown";
+    /// <summary>
+    /// Список всех транзакций для аккаунта
+    /// </summary>
 
     private List<Transaction> _allTransactions = new List<Transaction>();
-
+    /// <summary>
+    /// Конструктор класса банк без минимального баланса
+    /// </summary>
+    /// <param name="owner">Имя Владельца</param>
+    /// <param name="initialBalance">Начальный баланс</param>
+    private List<AuditLog> _allAuditLogs = new List<AuditLog>();
     public BankAccount(string owner, decimal initialBalance): this(owner, initialBalance, 0) { }
+    /// <summary>
+    /// Конструктор класса банк c минимальным баланса
+    /// </summary>
+    /// <param name="owner">Имя владельца</param>
+    /// <param name="initialBalance">Начальный баланс</param>
+    /// <param name="minimumbalance">Минимальный баланс</param>
     public BankAccount(string owner, decimal initialBalance, decimal minimumbalance)
     {
        
         Owner = owner; //this.Owner = name
         _minimumbalance = minimumbalance;
-        if (initialBalance < 0) 
+        if (initialBalance > 0) 
         {
             MakeDeposit(initialBalance, DateTime.UtcNow, "Initial balance");
         }
         Number = s_accountNumberSeed.ToString();
         s_accountNumberSeed++;
     }
-
+    /// <summary>
+    /// Метод позволяющий делать депозиты
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <param name="date"></param>
+    /// <param name="note"></param>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     public void MakeDeposit(decimal  amount, DateTime date, string note)
     {
         if (amount <= 0)
@@ -51,21 +93,30 @@ public class BankAccount
         }
         var deposit = new Transaction(amount,date, note);
         _allTransactions.Add(deposit);
+        var audit = new AuditLog(s_accountNumberSeed, "MakeDeposit", amount, date);
+        _allAuditLogs.Add(audit);
     }
+   /// <summary>
+   /// Метод 
+   /// </summary>
+   /// <param name="amount"></param>
+   /// <param name="date"></param>
+   /// <param name="note"></param>
     public void MakeWithdrawal(decimal amount, DateTime date, string note)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(amount);
         Transaction? overdraftTransaction = CheckWithDrawalLimit(Balance- amount < _minimumbalance);
         Transaction? withdrawal = new Transaction(-amount, date, note);
         _allTransactions.Add(withdrawal);
-
+        AuditLog? withdrawalaudit = new AuditLog(s_accountNumberSeed,"MakeWithDrawal",amount, date);
+        _allAuditLogs.Add(withdrawalaudit);
         if (overdraftTransaction != null) 
         {
             _allTransactions.Add(overdraftTransaction);       
         }
     }
 
-    protected Transaction? CheckWithDrawalLimit(bool v)
+    protected virtual  Transaction? CheckWithDrawalLimit(bool v)
     {
         if(v)
         {
@@ -81,6 +132,10 @@ public class BankAccount
     //        Console.WriteLine(listoftrans);
     //    }
     //}
+    /// <summary>
+    /// Метод предоставляющий информацию об аккаунта
+    /// </summary>
+    /// <returns></returns>
     public string GetAccountHistory()
     {
         var report = new StringBuilder();
@@ -96,14 +151,54 @@ public class BankAccount
         }
         return report.ToString();
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public string GetAccountAudit()
+    {
+        var audit = new StringBuilder();
+
+        decimal amount = 0;
+        audit.AppendLine("NumberAccount\tTypeOfOperation\tAmount\tDate");
+        foreach(var item in _allAuditLogs)
+        {
+            audit.AppendLine($"" + $"{item.NumberOfAccount}\t" + $"{item.TypeOfOperation}\t" + $"{item.Amount}\t" + $"{item.Date}");
+        }
+        return audit.ToString();
+    }
 
 
     //Ключевое слово virtual позволяет в дочернем классе
     //предоставить другую реализацию
     //метода PerformMonthAndTransactions
+    /// <summary>
+    /// Метод добавляющий проценты по счёту
+    /// </summary>
     public virtual void PerformMonthAndTransactions()
     {
-
+        
+        if (Status == "Regular")
+        {
+            MakeWithdrawal(-50, DateTime.UtcNow, "regular month service");
+        }
+        if (Status == "Premium")
+        {
+            if (Balance > 10000m)
+            {
+                decimal monthpay = -(Balance - 10000) * 0.01m;
+                MakeWithdrawal(monthpay, DateTime.UtcNow, "regular month service");
+            }
+        }
+        if (Status == "VIP")
+        {
+            if (Balance > 10000m)
+            {
+                decimal monthpay = -(Balance - 10000) * 0.03m;
+                MakeWithdrawal(monthpay, DateTime.UtcNow, "regular month service");
+                MakeDeposit(monthpay * 0.05m, DateTime.UtcNow, "cashback");
+            }
+        }
     }
 
     // переопределяем метод, который унаследовали от object
@@ -112,7 +207,29 @@ public class BankAccount
     //{
     //    return $"Type:{GetType().Name} Owner: {Owner}\tNumber of account:{Number}";
     //}
+    /// <summary>
+    /// Метод предоставляющий информацию о типе,владельце и номере аккаунта
+    /// </summary>
+    /// <returns></returns>
     public override string ToString()
-    
-       => $"Type: {GetType().Name}\t Owner: {Owner}\tNumber of account:{Number}";
+    {
+        return $"Owner: {Owner}\taccount number: {Number} (тип счета {GetType()})";
+    }
+    public bool Transfer(decimal amount, BankAccount target)
+    {
+        if(this.Balance - amount < 0)
+        {
+            return false;
+        }
+        try
+        {
+            target.MakeDeposit(amount, DateTime.UtcNow, $"Transfer from account {this.Owner} to {target.Owner}");
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+        this.MakeWithdrawal(amount, DateTime.UtcNow, $"Transfer from your account to {target.Owner}");
+        return true;
+    }
 }
