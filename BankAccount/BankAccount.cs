@@ -59,6 +59,11 @@ public class BankAccount
     /// <param name="owner">Имя Владельца</param>
     /// <param name="initialBalance">Начальный баланс</param>
     private List<AuditLog> _allAuditLogs = new List<AuditLog>();
+    /// <summary>
+    /// Конструктор BankAccount с 2 параметрами
+    /// </summary>
+    /// <param name="owner"></param>
+    /// <param name="initialBalance"></param>
     public BankAccount(string owner, decimal initialBalance): this(owner, initialBalance, 0) { }
     /// <summary>
     /// Конструктор класса банк c минимальным баланса
@@ -115,7 +120,12 @@ public class BankAccount
             _allTransactions.Add(overdraftTransaction);       
         }
     }
-
+    /// <summary>
+    /// Метод проверки на лимит вывода средств
+    /// </summary>
+    /// <param name="v"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException"></exception>
     protected virtual  Transaction? CheckWithDrawalLimit(bool v)
     {
         if(v)
@@ -159,7 +169,6 @@ public class BankAccount
     {
         var audit = new StringBuilder();
 
-        decimal amount = 0;
         audit.AppendLine("NumberAccount\tTypeOfOperation\tAmount\tDate");
         foreach(var item in _allAuditLogs)
         {
@@ -180,13 +189,13 @@ public class BankAccount
         
         if (Status == "Regular")
         {
-            MakeWithdrawal(-50, DateTime.UtcNow, "regular month service");
+            MakeWithdrawal(50, DateTime.UtcNow, "regular month service");
         }
         if (Status == "Premium")
         {
             if (Balance > 10000m)
             {
-                decimal monthpay = -(Balance - 10000) * 0.01m;
+                decimal monthpay = (Balance - 10000) * 0.01m;
                 MakeWithdrawal(monthpay, DateTime.UtcNow, "regular month service");
             }
         }
@@ -194,7 +203,7 @@ public class BankAccount
         {
             if (Balance > 10000m)
             {
-                decimal monthpay = -(Balance - 10000) * 0.03m;
+                decimal monthpay = (Balance - 10000) * 0.03m;
                 MakeWithdrawal(monthpay, DateTime.UtcNow, "regular month service");
                 MakeDeposit(monthpay * 0.05m, DateTime.UtcNow, "cashback");
             }
@@ -215,6 +224,12 @@ public class BankAccount
     {
         return $"Owner: {Owner}\taccount number: {Number} (тип счета {GetType()})";
     }
+    /// <summary>
+    /// Метод перевода денег с одного аккаунта на другой
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <param name="target"></param>
+    /// <returns></returns>
     public bool Transfer(decimal amount, BankAccount target)
     {
         if(this.Balance - amount < 0)
@@ -231,5 +246,19 @@ public class BankAccount
         }
         this.MakeWithdrawal(amount, DateTime.UtcNow, $"Transfer from your account to {target.Owner}");
         return true;
+    }
+    /// <summary>
+    /// Метод определяющий статус клиента банка
+    /// </summary>
+    /// <param name="i"></param>
+    public void ChangeStatus(int i)
+    {
+        switch(i)
+        {
+            case (0): this.Status = "Regular"; break;
+            case (1): this.Status = "Premium"; break;
+            case (2): this.Status = "VIP"; break;
+            default: this.Status = Status; break;
+        }
     }
 }
