@@ -53,11 +53,9 @@ public class BankAccount
     /// </summary>
 
     private List<Transaction> _allTransactions = new List<Transaction>();
-    /// <summary>
-    /// Конструктор класса банк без минимального баланса
-    /// </summary>
-    /// <param name="owner">Имя Владельца</param>
-    /// <param name="initialBalance">Начальный баланс</param>
+  /// <summary>
+  /// Список всех аудитов для аккаунта
+  /// </summary>
     private List<AuditLog> _allAuditLogs = new List<AuditLog>();
     /// <summary>
     /// Конструктор BankAccount с 2 параметрами
@@ -241,7 +239,7 @@ public class BankAccount
         {
             target.MakeDeposit(amount, DateTime.UtcNow, $"Transfer from account {this.Owner} to {target.Owner}");
         }
-        catch (Exception ex)
+        catch
         {
             return false;
         }

@@ -58,17 +58,16 @@ namespace BankAccount2
             accounts.Add(account);
             accounts.Add(interestEarning);
 
-            //foreach (BankAccount bankAccount in accounts)
-            //{
-            //    Console.WriteLine(bankAccount);
-            //    Console.WriteLine(bankAccount.GetAccountHistory);
-            //}
+            foreach (BankAccount bankAccount in accounts)
+            {
+                Console.WriteLine(bankAccount);
+                Console.WriteLine(bankAccount.GetAccountHistory());
+            }
 
-            //foreach (BankAccount bankAccount in accounts)
-            //{
-            //    Console.WriteLine(bankAccount.GetAccountAudit());
-            //    Console.WriteLine(bankAccount.Status);
-            //}
+            foreach (BankAccount bankAccount in accounts)
+            {
+                Console.WriteLine(bankAccount.GetAccountAudit());
+            }
 
             BankAccount test1 = new BankAccount("tester", 100000);
             BankAccount test2 = new BankAccount("tester-2", 1000);
