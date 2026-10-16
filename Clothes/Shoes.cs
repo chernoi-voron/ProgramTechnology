@@ -8,11 +8,11 @@ public class Shoes : Clothing, IWashable
     /// <summary>
     /// Свойство содержащее информацию находится ли одежда в стирке
     /// </summary>
-    public bool is_wash { get; set; } = false;
+    public bool Is_wash { get; set; } = false;
     /// <summary>
     /// Свойство содержащее информацию в находится ли одежда в носке
     /// </summary>
-    public bool is_worn { get; set; } = false;
+    public bool Is_worn { get; set; } = false;
     /// <summary>
     /// Свойство о толщину подошвы
     /// </summary>
@@ -47,12 +47,12 @@ public class Shoes : Clothing, IWashable
     /// </summary>
     public override void Wear()
     {
-        if (is_wash is true)
+        if (Is_wash is true)
         {
             Console.WriteLine($"{Name} cannot be worn");
             return;
         }
-        is_worn = true;
+        Is_worn = true;
         Console.WriteLine($"{Name} worn");
 
     }
@@ -61,12 +61,12 @@ public class Shoes : Clothing, IWashable
     /// </summary>
     public void Wash()
     {
-        if (is_worn is true)
+        if (Is_worn is true)
         {
             Console.WriteLine($"{Name} cannot be washed");
             return;
         }
-        is_wash = true;
+        Is_wash = true;
         Console.WriteLine($"{Name} washed");
     }
     /// <summary>
