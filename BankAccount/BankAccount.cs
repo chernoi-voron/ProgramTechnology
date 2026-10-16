@@ -86,9 +86,9 @@ public class BankAccount
     /// <summary>
     /// Метод позволяющий делать депозиты
     /// </summary>
-    /// <param name="amount"></param>
-    /// <param name="date"></param>
-    /// <param name="note"></param>
+    /// <param name="amount">сумма которая положится на счёт</param>
+    /// <param name="date">время операции</param>
+    /// <param name="note">комментарий к операции</param>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     public void MakeDeposit(decimal  amount, DateTime date, string note)
     {
@@ -102,11 +102,11 @@ public class BankAccount
         _allAuditLogs.Add(audit);
     }
    /// <summary>
-   /// Метод 
+   /// Метод снятия денег с аккаунта
    /// </summary>
-   /// <param name="amount"></param>
-   /// <param name="date"></param>
-   /// <param name="note"></param>
+   /// <param name="amount">сумма которую нужно снять</param>
+   /// <param name="date"> время операции</param>
+   /// <param name="note">комментарий к операции</param>
     public void MakeWithdrawal(decimal amount, DateTime date, string note)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(amount);
@@ -125,7 +125,8 @@ public class BankAccount
     /// </summary>
     /// <param name="v"></param>
     /// <returns></returns>
-    /// <exception cref="InvalidOperationException"></exception>
+    /// <exception cref="InvalidOperationException">
+    /// Бросается если оведрафт не возможен </exception>
     protected virtual  Transaction? CheckWithDrawalLimit(bool v)
     {
         if(v)
@@ -162,7 +163,7 @@ public class BankAccount
         return report.ToString();
     }
     /// <summary>
-    /// 
+    /// Функция возвращащая все аудиты на аккаунте
     /// </summary>
     /// <returns></returns>
     public string GetAccountAudit()
@@ -250,7 +251,7 @@ public class BankAccount
     /// <summary>
     /// Метод определяющий статус клиента банка
     /// </summary>
-    /// <param name="i"></param>
+    /// <param name="i"> один из статусов на выбор 0,1,2</param>
     public void ChangeStatus(int i)
     {
         switch(i)
