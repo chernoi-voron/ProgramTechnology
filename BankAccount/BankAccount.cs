@@ -65,7 +65,7 @@ public class BankAccount
         }
     }
 
-    protected Transaction? CheckWithDrawalLimit(bool v)
+    protected virtual Transaction? CheckWithDrawalLimit(bool v)
     {
         if(v)
         {
