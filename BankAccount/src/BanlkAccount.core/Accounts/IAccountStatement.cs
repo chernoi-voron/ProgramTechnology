@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BankAccounts.Core.Transactions;
+using System.Transactions;
 
-namespace BanlkAccount.core.Accounts
+namespace BankAccounts.Core.Accounts;
+
+// ISP: клиенты зависят только от того, что им реально нужно
+public interface IAccountStatement
 {
-    internal interface IAccountStatement
-    {
-    }
+    IReadOnlyList<Transactions.Transaction> Transactions { get; }
 }

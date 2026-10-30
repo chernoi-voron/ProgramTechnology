@@ -13,4 +13,12 @@
     <None Remove="src\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="PROJECT_STRUCTURE.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="src\BanlkAccount.core\BanlkAccount.Core.csproj" />
+  </ItemGroup>
+
 </Project>

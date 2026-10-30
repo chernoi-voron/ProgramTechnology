@@ -1,6 +1,8 @@
 <Solution>
   <Folder Name="/src/">
-    <Project Path="src/BanlkAccount.core/BanlkAccount.core.csproj" Id="894ae895-c60c-4710-ba5f-2a385b5ee60c" />
+    <Project Path="src/BanlkAccount.core/BanlkAccount.core.csproj" Id="894ae895-c60c-4710-ba5f-2a385b5ee60c" DisplayName="BanlkAccount.Core" />
   </Folder>
-  <Project Path="Bank.csproj" />
+  <Project Path="BankAccounts.VisualConsole.csproj">
+    <BuildDependency Project="src/BanlkAccount.core/BanlkAccount.core.csproj" />
+  </Project>
 </Solution>
