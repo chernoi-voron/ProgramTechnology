@@ -14,7 +14,7 @@ namespace GuessNumber.core.GeneratorNumbers
             _min = min;
             _max = max+1;
         }
-        int Generate()
+        public int Generate()
         {
             return _rnd.Next(_min,_max);
         }
