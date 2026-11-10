@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GuessNumber.core.src.GeneratorOfNumbers
+namespace GuessNumber.core.GeneratorOfNumbers
 {
     public interface IGenerate
     {
-        public int Generate();
+         int Generate();
     }
 }

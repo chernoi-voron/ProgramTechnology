@@ -4,7 +4,6 @@ using System.Text;
 
 namespace GuessNumber.core.Stats
 {
-    internal interface IStatistics
-    {
-    }
+    public record GameStatistic(int Attempts, bool LoseOrWin);
+
 }

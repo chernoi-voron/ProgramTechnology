@@ -1,3 +1,5 @@
 <Solution>
-  <Project Path="GuessNumber/GuessNumber.core.csproj" />
+  <Folder Name="/src/">
+    <Project Path="GuessNumber/GuessNumber.core.csproj" />
+  </Folder>
 </Solution>
