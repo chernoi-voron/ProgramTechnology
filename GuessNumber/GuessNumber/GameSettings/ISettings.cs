@@ -6,8 +6,8 @@ namespace GuessNumber.core.GameSettings
 {
     public interface ISettings
     {
-        public int UsedAttempts{ get; }
-        bool CanAttempt();
-        void SetAttempt();
+        int Cost { get; }
+        int? MaxAttempts {  get; }
+
     }
 }

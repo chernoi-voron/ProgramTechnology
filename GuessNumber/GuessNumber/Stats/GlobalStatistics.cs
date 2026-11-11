@@ -6,28 +6,27 @@ namespace GuessNumber.core.Stats
 {
     public class GlobalStatistics 
     {
-        public int Wins { get; private set; }
+        public int Wins { get; private set; } = 0;
 
-        public int Strike { get; private set; }
+        public int Streak { get; private set; } = 0;
 
-        public int BestStrike {  get; private set; }
+        public int BestStrike { get; private set; } = 0;
 
-        GlobalStatistics(GameStatistic stats)
+        public void Record(GameStatistic stats)
         {
-            if(stats is null) throw new ArgumentNullException(nameof(stats));
+            if (stats is null) throw new ArgumentNullException(nameof(stats));
 
-            if(stats.LoseOrWin)
+            if (stats.LoseOrWin)
             {
                 Wins++;
-                Strike++;
-                if(BestStrike < Strike) { BestStrike = Strike; }
+                Streak++;
+                if (BestStrike < Streak) { BestStrike = Streak; }
             }
             else
             {
-                Strike = 0;
+                Streak = 0;
             }
         }
-
 
     }
 }

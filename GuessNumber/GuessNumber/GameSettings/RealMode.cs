@@ -4,8 +4,9 @@ using System.Text;
 
 namespace GuessNumber.core.GameSettings
 {
-    internal class RealMode : ISettings
+    public class RealMode : ISettings
     {
-
+        public int? MaxAttempts { get; } = 20;
+        public int Cost { get; } = 1;
     }
 }

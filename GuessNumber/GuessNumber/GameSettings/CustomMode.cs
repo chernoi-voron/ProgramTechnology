@@ -6,11 +6,17 @@ namespace GuessNumber.core.GameSettings
 {
     public class CustomMode : ISettings
     {
-        private int _attempt;
+        public int? MaxAttempts {  get; }
+        public int Cost { get; }
 
-        public bool CanAttempt()
+        public CustomMode(int maxAttempt, int cost)
         {
-            return _attempt > 0;
+            if (maxAttempt <= 0  ) { throw new ArgumentOutOfRangeException("The attempts must be positive"); }
+            if (cost <= 0 ) { throw new ArgumentOutOfRangeException("The cost of attempts must be positive"); }
+            MaxAttempts = maxAttempt;
+            Cost = cost;
+
         }
+
     }
 }
