@@ -1,4 +1,4 @@
-﻿using GuessNumber.core.PlayerAccount;
+﻿using GuessNumber.core.Player;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,13 +10,11 @@ namespace GuessNumber.core.Account
         public Guid PlayerId { get; }
         public string Loggin { get; }
 
-        public string Password {  get; }
 
-        public Account(Player id,  string loggin, string password)
+        public Account(IPlayer id,  string loggin)
         {
-            if(loggin is null || password is null || id is null) { throw new ArgumentNullException("loggin or password or id"); }
+            if(loggin is null  || id is null) { throw new ArgumentNullException("loggin or id"); }
             Loggin = loggin;
-            Password = password;
             PlayerId = id.ID;
         }
 
