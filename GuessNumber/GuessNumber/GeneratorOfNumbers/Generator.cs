@@ -10,7 +10,7 @@ namespace GuessNumber.core.GeneratorOfNumbers
         private Random rnd = new Random();
         private int _min;
         private int _max;
-        Generator(int min=-100, int max=100)
+        public Generator(int min=-100, int max=100)
         {
             _min = min;
             _max = max+1;

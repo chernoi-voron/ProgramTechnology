@@ -11,6 +11,13 @@ namespace GuessNumber.core.Stats
         public int Streak { get; private set; } = 0;
 
         public int BestStrike { get; private set; } = 0;
+        public GlobalStatistics(int wins, int streak, int bestStrike)
+        {
+            if (wins < 0 || streak < 0 || bestStrike < 0) { throw new ArgumentOutOfRangeException("wins or streak or best streak must be more than zero"); }
+            Wins = wins;
+            Streak = streak;
+            BestStrike = bestStrike;
+        }
 
         public void Record(GameStatistic stats)
         {

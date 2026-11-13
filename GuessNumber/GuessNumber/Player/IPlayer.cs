@@ -10,6 +10,5 @@ namespace GuessNumber.core.Player
         public string Name { get; }
 
         public Guid ID { get; }
-        public GlobalStatistics Stats { get; }
     }
 }

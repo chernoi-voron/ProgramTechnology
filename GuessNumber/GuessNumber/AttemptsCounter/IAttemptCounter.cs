@@ -7,6 +7,7 @@ namespace GuessNumber.core.AttemptsCounter
 {
     public interface IAttemptCounter
     {
+        int UsedAttempt { get; }
         bool CanAttempt();
         void SetAttempt();
 

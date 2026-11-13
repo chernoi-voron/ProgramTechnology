@@ -6,12 +6,12 @@ using System.Text;
 
 namespace GuessNumber.core.PlayerAccount
 {
-    public class Player :IPlayer
+    public class Player : IPlayer
     {
         public string Name { get; }
 
         public Guid ID { get; }
-        public GlobalStatistics Stats { get; } = new();
+
 
         public Player(string name, Guid Id)
         {
@@ -26,5 +26,6 @@ namespace GuessNumber.core.PlayerAccount
             Name = name;
             ID = Guid.NewGuid();
         }
+
     }
 }
