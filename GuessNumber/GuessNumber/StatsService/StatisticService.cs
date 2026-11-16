@@ -35,6 +35,7 @@ namespace GuessNumber.core.StatsService
         public string PrintMyStatic(Guid id)
         {
             var tempstat = _statsRepository.Get(id);
+            if (tempstat is null) return "Stats dont avalaible";
             return $"Wins: {tempstat.Wins} Strike: {tempstat.Streak} BestStrike: {tempstat.BestStrike}";
         }
     }

@@ -12,6 +12,7 @@ namespace GuessNumber.core.GeneratorOfNumbers
         private int _max;
         public Generator(int min=-100, int max=100)
         {
+            if(min > max) { throw new ArgumentOutOfRangeException("Min must be more than max"); }
             _min = min;
             _max = max+1;
         }

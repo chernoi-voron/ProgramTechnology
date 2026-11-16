@@ -21,16 +21,17 @@ namespace GuessNumber.VisualConsole
             var gen = new Generator(-100, 100);
             var consoleout = new ConsoleOutput();
             var consolein = new ConsoleInput();
-            var repo = new CsvRepository("C:\\Users\\Atlas-02\\source\\repos\\ProgramTechnology");
+            var repo = new CsvRepository("G:\\");
             PersonAccount person = new PersonAccount(Guid.NewGuid(),"xxx","xxx");
             Player player = new Player("xxx",Guid.NewGuid());
 
             Authorization authorization = new Authorization(repo);
             var Stat = new StatisticService(repo);
 
-            Console.WriteLine("Enter a num 1 - Register new Account 2 - Login your Account");
+
             while (Auth)
             {
+                Console.WriteLine("Enter a num 1 - Register new Account 2 - Login your Account");
                 switch (int.Parse(Console.ReadLine()))
                 {
                     case 1:
@@ -63,16 +64,17 @@ namespace GuessNumber.VisualConsole
             }
             GameSession gameSession = new GameSession(new Attempt(new RealMode()), gen.Generate());
             GameService gameService = new GameService(player, gameSession, consoleout, consolein);
-            Console.WriteLine("Choose menu item 1 - See your stats, 2 - Play the Game, 3 - exit from Program");
+
             while(game)
             {
+                Console.WriteLine("Choose menu item 1 - See your stats, 2 - Play the Game, 3 - exit from Program");
                 int result = 0;
                 int.TryParse(Console.ReadLine(), out result);
                 switch (result)
                 {
                     case (1):
                         {
-                            Stat.PrintMyStatic(gameService._player.ID); break;
+                            consoleout.Print(Stat.PrintMyStatic(gameService._player.ID)); break;
                         }
                     case (2):
                         {

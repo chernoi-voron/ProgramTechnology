@@ -38,15 +38,15 @@ namespace GuessNumber.core.GameService
         }
         public void Menu()
         {
-            _gameOutput.Print("Choose a menu item:\n 1- Start the Game 2 - Exit from game");
             while (true)
             {
+                _gameOutput.Print("Choose a menu item:\n 1- Start the Game 2 - Exit from game");
                 switch (_gameInput.Read())
                 {
                     case 1:
                         {
                             Game();
-                            break;
+                            return;
                         }
                     case 2:
                         {

@@ -70,8 +70,9 @@ namespace GuessNumber.core.Repository
             {
                 string[] parts = line.Split(',');
                 if (parts.Length < 4) continue;
-                if (Guid.Parse(parts[0])== id)
+                if (Guid.TryParse(parts[0],out Guid res))
                 {
+                    
                     return new GlobalStatistics(int.Parse(parts[1]), int.Parse(parts[2]), int.Parse(parts[3]));
                 }
             }
