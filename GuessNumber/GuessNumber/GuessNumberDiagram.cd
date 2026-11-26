@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="GuessNumber.core.GameService.GameService" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAABAAAAAAAACAAAAAgIAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>GameService\GameService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_gameOutput" />
+      <Field Name="_gameInput" />
+      <Field Name="_player" />
+      <Field Name="_session" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GuessNumber.core.Game.GameSession" Collapsed="true">
+    <Position X="2.75" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAQAAACAQAAgAIIAAAAAAAQAAAAAAECA=</HashCode>
+      <FileName>Game\GameSession.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="attemptCounter" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GuessNumber.core.AttemptsCounter.Attempt" Collapsed="true">
+    <Position X="5" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAEAAAAIAAQAgAAAACAAAAA=</HashCode>
+      <FileName>AttemptsCounter\Attempt.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GuessNumber.core.AuthService.Authorization" Collapsed="true">
+    <Position X="8.5" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAABAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>AuthService\Authorization.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="_rep" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GuessNumber.core.StatsService.StatisticService" Collapsed="true">
+    <Position X="11.75" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAQCAAAAAAAAAAA=</HashCode>
+      <FileName>StatsService\StatisticService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_statsRepository" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GuessNumber.core.Validator.InputValidator" Collapsed="true">
+    <Position X="14" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>wAAAAAAAAAAAQAAAAAAAAAAAAQAAAxAAAAAAAAAABAA=</HashCode>
+      <FileName>Validator\InputValidator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GuessNumber.core.PlayerAccount.Player" Collapsed="true">
+    <Position X="5" Y="6.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Player\Player.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GuessNumber.core.GameSettings.RealMode" Collapsed="true">
+    <Position X="7" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAEAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>GameSettings\RealMode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GuessNumber.core.GameSettings.EndlessMode" Collapsed="true">
+    <Position X="8.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAEAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>GameSettings\EndlessMode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GuessNumber.core.GameSettings.CustomMode" Collapsed="true">
+    <Position X="10.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAEAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>GameSettings\CustomMode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GuessNumber.core.Repository.CsvRepository" Collapsed="true">
+    <Position X="12.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAABAAQAAAAAACAAIAAAAAAgQAAAAAAEAAAAA=</HashCode>
+      <FileName>Repository\CsvRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GuessNumber.core.GeneratorOfNumbers.Generator" Collapsed="true">
+    <Position X="0.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAIAAEABAAEAAAAA=</HashCode>
+      <FileName>GeneratorOfNumbers\Generator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GuessNumber.core.Game.GameWinEventArgs" Collapsed="true">
+    <Position X="9.75" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAEAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Game\GameWinEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GuessNumber.core.Stats.GlobalStatistics" Collapsed="true">
+    <Position X="12" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAIAAAgAAAAAAABBAA=</HashCode>
+      <FileName>Stats\GlobalStatistics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="GuessNumber.core.GameService.IGameService" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameService\IGameService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GuessNumber.core.Game.IGameSession" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAACAAAAgAIAAAAAAAAQAAAAAAECA=</HashCode>
+      <FileName>Game\IGameSession.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GuessNumber.core.AttemptsCounter.IAttemptCounter" Collapsed="true">
+    <Position X="5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAEAAAAIAAQAgAAAACAAAAA=</HashCode>
+      <FileName>AttemptsCounter\IAttemptCounter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GuessNumber.core.AuthService.IAuthorization" Collapsed="true">
+    <Position X="7.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>AuthService\IAuthorization.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GuessNumber.core.AuthService.IRegistration" Collapsed="true">
+    <Position X="9.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AuthService\IRegistration.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GuessNumber.core.StatsService.IStatisticService" Collapsed="true">
+    <Position X="11.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>StatsService\IStatisticService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GuessNumber.core.Validator.IInputValidator" Collapsed="true">
+    <Position X="14" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAAAAAAAABAA=</HashCode>
+      <FileName>Validator\IInputValidator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GuessNumber.core.GameLogg.IGameInput" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameOut\IGameInput.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GuessNumber.core.GameLogg.IGameOutput" Collapsed="true">
+    <Position X="2.75" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>GameOut\IGameOutput.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GuessNumber.core.Player.IPlayer" Collapsed="true">
+    <Position X="5" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Player\IPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GuessNumber.core.GameSettings.ISettings" Collapsed="true">
+    <Position X="7.25" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAEAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>GameSettings\ISettings.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GuessNumber.core.Repository.IAccountRepository" Collapsed="true">
+    <Position X="9.5" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Repository\IAccountRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GuessNumber.core.Repository.IPlayerStatsRepository" Collapsed="true">
+    <Position X="11.75" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAEAAAAA=</HashCode>
+      <FileName>Repository\IPlayerStatsRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GuessNumber.core.GeneratorOfNumbers.IGenerate" Collapsed="true">
+    <Position X="0.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAEAAAAA=</HashCode>
+      <FileName>GeneratorOfNumbers\IGenerate.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

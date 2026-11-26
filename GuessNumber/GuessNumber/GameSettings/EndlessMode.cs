@@ -7,6 +7,7 @@ namespace GuessNumber.core.GameSettings
 {
     public class EndlessMode :ISettings
     {
+        public string NameOfMode { get; } = "EndlessMode";
         public int? MaxAttempts { get; } = null;
         public int Cost { get; } = 1;
     }

@@ -1,5 +1,6 @@
 ﻿using GuessNumber.core.Game;
 using GuessNumber.core.GameLogg;
+using GuessNumber.core.GeneratorOfNumbers;
 using GuessNumber.core.Player;
 using GuessNumber.core.Stats;
 using System;
@@ -14,6 +15,7 @@ namespace GuessNumber.core.GameService
         private IGameInput _gameInput;
         public readonly IPlayer _player;
         public readonly IGameSession _session;
+
 
         public GameService(IPlayer player, IGameSession session, IGameOutput gameOutput, IGameInput gameInput)
         {
@@ -48,6 +50,7 @@ namespace GuessNumber.core.GameService
                 {
                     case 1:
                         {
+
                             Game();
                             break;
                         }

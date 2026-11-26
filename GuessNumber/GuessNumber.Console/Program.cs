@@ -33,7 +33,8 @@ namespace GuessNumber.VisualConsole
             {
                 consoleout.Print(e.Message);
                 consoleout.Print($"Amount of attempts {e.Statistic.Attempts}");
-                if (e.Exodus == true) { Stat.RecordGame(player!.ID, e.Statistic); }
+
+                Stat.RecordGame(player!.ID, e.Statistic); 
 
             }
 
@@ -120,14 +121,14 @@ namespace GuessNumber.VisualConsole
 
             }
             if(player is null || person is null) { return; }
-            GameSession gameSession = new GameSession(new Attempt(new RealMode()), gen.Generate());
+            GameSession gameSession = new GameSession(new Attempt(new RealMode()), gen);
             gameSession.GameExodus += HandleGameWin;
             GameService gameService = new GameService(player!, gameSession, consoleout, consolein);
             if (Stat.PrintMyStats(player!.ID) == null) { consoleout.Print($"Welcome {player.Name}"); }
             else { consoleout.Print($"Welcome back {player.Name}"); }
             while (game)
             {
-                consoleout.Print("Choose menu item 1 - See your stats, 2 - Play the Game\n 3 - Create custom game, 4 - Switch mode\n 5 - Print current mode 6 - Change range of numbers\n" +
+                consoleout.Print("Choose menu item\n 1 - See your stats, 2 - Play the Game\n 3 - Create custom game, 4 - Switch mode\n 5 - Print current mode 6 - Change range of numbers\n" +
                     " 7 - exit from Program");
                 int result = 0;
                 int.TryParse(Console.ReadLine(), out result);
@@ -143,12 +144,19 @@ namespace GuessNumber.VisualConsole
                     case (2):
                         {
                             gameService.Menu();
+                            
                             break;
                         }
                     case (3):
                         {
-                            var maxAttempts = ReadPositiveNumber("Enter a number of max attempts", "Max attempts");
-                            var costAttempt = ReadPositiveNumber("Enter a number of cost attempts", "Cost of attempt");
+                            var maxAttempts = ReadPositiveNumber("Number of max attempts", "Max attempts");
+                            var costAttempt = ReadPositiveNumber("Number of cost attempts", "Cost of attempt");
+                            var checkRange = validator.ValidateRangeGenerator( costAttempt, maxAttempts);
+                            if (!checkRange.IsValid)
+                            {
+                                consoleout.Print("Max attempts must be more than costAttempt");
+                                break;
+                            }
                             customMode = new CustomMode(maxAttempts, costAttempt);
                             break;
                         }
@@ -188,12 +196,14 @@ namespace GuessNumber.VisualConsole
                         }
                     case (5):
                         {
-                            consoleout.Print($"Current mode is {gameService._session.attemptCounter.GetType().Name}");
+                            consoleout.Print($"Current mode is {gameService._session.attemptCounter.Settings.NameOfMode}");
                             break;
                         }
                     case (6):
                         {
+                            consoleout.Print("Number of min");
                             var min = consolein.Read();
+                            consoleout.Print("Number of max");
                             var max = consolein.Read();
                             var checkRange = validator.ValidateRangeGenerator(min, max);
                             if (!checkRange.IsValid)
@@ -202,6 +212,7 @@ namespace GuessNumber.VisualConsole
                                 break;
                             }
                             gen.SetRange(min, max);
+                            
                             break;
                         }
                     case (7):

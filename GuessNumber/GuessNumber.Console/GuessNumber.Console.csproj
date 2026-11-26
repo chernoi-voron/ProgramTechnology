@@ -8,6 +8,45 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Account\**" />
+    <Compile Remove="AttemptsCounter\**" />
+    <Compile Remove="AuthService\**" />
+    <Compile Remove="GameService\**" />
+    <Compile Remove="GameSettings\**" />
+    <Compile Remove="Game\**" />
+    <Compile Remove="GeneratorOfNumbers\**" />
+    <Compile Remove="Player\**" />
+    <Compile Remove="Repository\**" />
+    <Compile Remove="StatsService\**" />
+    <Compile Remove="Stats\**" />
+    <Compile Remove="Validator\**" />
+    <EmbeddedResource Remove="Account\**" />
+    <EmbeddedResource Remove="AttemptsCounter\**" />
+    <EmbeddedResource Remove="AuthService\**" />
+    <EmbeddedResource Remove="GameService\**" />
+    <EmbeddedResource Remove="GameSettings\**" />
+    <EmbeddedResource Remove="Game\**" />
+    <EmbeddedResource Remove="GeneratorOfNumbers\**" />
+    <EmbeddedResource Remove="Player\**" />
+    <EmbeddedResource Remove="Repository\**" />
+    <EmbeddedResource Remove="StatsService\**" />
+    <EmbeddedResource Remove="Stats\**" />
+    <EmbeddedResource Remove="Validator\**" />
+    <None Remove="Account\**" />
+    <None Remove="AttemptsCounter\**" />
+    <None Remove="AuthService\**" />
+    <None Remove="GameService\**" />
+    <None Remove="GameSettings\**" />
+    <None Remove="Game\**" />
+    <None Remove="GeneratorOfNumbers\**" />
+    <None Remove="Player\**" />
+    <None Remove="Repository\**" />
+    <None Remove="StatsService\**" />
+    <None Remove="Stats\**" />
+    <None Remove="Validator\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GuessNumber\GuessNumber.core.csproj" />
   </ItemGroup>
 

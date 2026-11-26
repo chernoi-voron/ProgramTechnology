@@ -8,6 +8,7 @@ namespace GuessNumber.core.GameSettings
     {
         public int? MaxAttempts {  get; }
         public int Cost { get; }
+        public string NameOfMode { get; } = "CustomMode";
 
         public CustomMode(int maxAttempt, int cost)
         {

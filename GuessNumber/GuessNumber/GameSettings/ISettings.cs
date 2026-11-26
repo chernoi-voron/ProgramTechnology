@@ -9,5 +9,7 @@ namespace GuessNumber.core.GameSettings
         int Cost { get; }
         int? MaxAttempts {  get; }
 
+        string NameOfMode { get; }
+
     }
 }
