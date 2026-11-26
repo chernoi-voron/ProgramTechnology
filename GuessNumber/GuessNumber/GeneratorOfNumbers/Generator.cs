@@ -19,5 +19,11 @@ namespace GuessNumber.core.GeneratorOfNumbers
         {
             return rnd.Next(_min, _max);
         }
+        
+        public void SetRange(int min, int max)
+        {
+            _min = min;
+            _max = max;
+        }
     }
 }

@@ -1,15 +1,16 @@
-﻿using GuessNumber.core.Game;
-using GuessNumber.core.GameService;
-using GuessNumber.core.AuthService;
-using GuessNumber.core.Repository;
-using GuessNumber.core.GeneratorOfNumbers;
+﻿using GuessNumber.core.Account;
 using GuessNumber.core.AttemptsCounter;
-using GuessNumber.core.GameSettings;
-using GuessNumber.core.Player;
+using GuessNumber.core.AuthService;
+using GuessNumber.core.Game;
 using GuessNumber.core.GameLogg;
+using GuessNumber.core.GameService;
+using GuessNumber.core.GameSettings;
+using GuessNumber.core.GeneratorOfNumbers;
+using GuessNumber.core.Player;
 using GuessNumber.core.PlayerAccount;
-using GuessNumber.core.Account;
+using GuessNumber.core.Repository;
 using GuessNumber.core.StatsService;
+using GuessNumber.core.Validator;
 
 namespace GuessNumber.VisualConsole
 {
@@ -17,10 +18,11 @@ namespace GuessNumber.VisualConsole
     {
         static void Main(string[] args)
         {
-            bool Auth = true,game = true;
-            var gen = new TestGenerator();
+            bool Auth = true, game = true;
+            var gen = new Generator();
             var consoleout = new ConsoleOutput();
             var consolein = new ConsoleInput();
+            IInputValidator validator = new InputValidator();
             var repo = new CsvRepository("G:\\");
             PersonAccount? person = null;
             Player? player = null;
@@ -31,8 +33,21 @@ namespace GuessNumber.VisualConsole
             {
                 consoleout.Print(e.Message);
                 consoleout.Print($"Amount of attempts {e.Statistic.Attempts}");
-                if (e.Exodus == true) { Stat.RecordGame(player.ID, e.Statistic); }
+                if (e.Exodus == true) { Stat.RecordGame(player!.ID, e.Statistic); }
 
+            }
+
+
+            int ReadPositiveNumber(string mess, string fieldName)
+            {
+                while (true)
+                {
+                    consoleout.Print(mess);
+                    int value = consolein.Read();
+                    var check = validator.ValidatePositiveNumber(value, fieldName);
+                    if (check.IsValid) { return value; }
+                    consoleout.Print(check.Error!);
+                }
             }
 
 
@@ -43,18 +58,37 @@ namespace GuessNumber.VisualConsole
                 {
                     case 1:
                         {
-                            consoleout.Print("Enter your wish login and name of your game person");
-                            var regdata = Console.ReadLine()!.Split(' ');
-                            person = authorization.Register(regdata[0], regdata[1]);
-                            player = new Player(person!.Name,Guid.NewGuid());
+                            consoleout.Print("Enter your wish login");
+                            var newLogin = Console.ReadLine()?.Trim();
+                            var loginCheck = validator.ValidateLogin(newLogin);
+                            if (!loginCheck.IsValid)
+                            {
+                                consoleout.Print(loginCheck.Error!);
+                                break;
+                            }
+                            consoleout.Print("Enter name of your game person");
+                            var newName = Console.ReadLine()?.Trim();
+                            var nameCheck = validator.ValidateName(newName);
+                            if (!nameCheck.IsValid)
+                            {
+                                consoleout.Print(nameCheck.Error!);
+                                break;
+                            }
+                            person = authorization.Register(newLogin!, newName!);
+                            if (person is null)
+                            {
+                                consoleout.Print("This login is using");
+                                break;
+                            }
+                            player = new Player(person.Name, person.Id);
                             Auth = false;
                             break;
                         }
                     case 2:
                         {
                             consoleout.Print("Enter your login");
-                            var login = Console.ReadLine();
-                            if (login == "")
+                            var login = Console.ReadLine()?.Trim();
+                            if (string.IsNullOrEmpty(login))
                             {
                                 consoleout.Print("Incorrect login");
                                 break;
@@ -85,24 +119,26 @@ namespace GuessNumber.VisualConsole
                 }
 
             }
+            if(player is null || person is null) { return; }
             GameSession gameSession = new GameSession(new Attempt(new RealMode()), gen.Generate());
             gameSession.GameExodus += HandleGameWin;
             GameService gameService = new GameService(player!, gameSession, consoleout, consolein);
-            if(Stat.PrintMyStats(player!.ID) == null) { consoleout.Print($"Welcome {player.Name}"); }
+            if (Stat.PrintMyStats(player!.ID) == null) { consoleout.Print($"Welcome {player.Name}"); }
             else { consoleout.Print($"Welcome back {player.Name}"); }
-            while(game)
+            while (game)
             {
-                consoleout.Print("Choose menu item 1 - See your stats, 2 - Play the Game\n 3 - Create custom game, 4 - Switch mode\n 5 - Print current mode 6 - exit from Program");
+                consoleout.Print("Choose menu item 1 - See your stats, 2 - Play the Game\n 3 - Create custom game, 4 - Switch mode\n 5 - Print current mode 6 - Change range of numbers\n" +
+                    " 7 - exit from Program");
                 int result = 0;
                 int.TryParse(Console.ReadLine(), out result);
                 switch (result)
                 {
                     case (1):
                         {
-                                var statsPlayer = Stat.PrintMyStats(player.ID);
-                                if(statsPlayer is null) { consoleout.Print("Stats don't avalaibe"); }
-                                else { consoleout.Print(statsPlayer); }
-                                break;
+                            var statsPlayer = Stat.PrintMyStats(player.ID);
+                            if (statsPlayer is null) { consoleout.Print("Stats don't avalaibe"); }
+                            else { consoleout.Print(statsPlayer); }
+                            break;
                         }
                     case (2):
                         {
@@ -111,17 +147,15 @@ namespace GuessNumber.VisualConsole
                         }
                     case (3):
                         {
-                            consoleout.Print("Enter a number of max attempts");
-                            var maxAttempts = consolein.Read();
-                            consoleout.Print("Enter a number of cost attempts");
-                            var costAttempt = consolein.Read();
+                            var maxAttempts = ReadPositiveNumber("Enter a number of max attempts", "Max attempts");
+                            var costAttempt = ReadPositiveNumber("Enter a number of cost attempts", "Cost of attempt");
                             customMode = new CustomMode(maxAttempts, costAttempt);
                             break;
                         }
                     case (4):
                         {
                             consoleout.Print("Choose a mode 1 - RealMode 2 - CustomMode 3 - EndlessMode 4 - Exit");
-                            switch(consolein.Read())
+                            switch (consolein.Read())
                             {
                                 case (1):
                                     {
@@ -159,7 +193,21 @@ namespace GuessNumber.VisualConsole
                         }
                     case (6):
                         {
-                            game = false; break;
+                            var min = consolein.Read();
+                            var max = consolein.Read();
+                            var checkRange = validator.ValidateRangeGenerator(min, max);
+                            if (!checkRange.IsValid)
+                            {
+                                consoleout.Print(checkRange.Error!);
+                                break;
+                            }
+                            gen.SetRange(min, max);
+                            break;
+                        }
+                    case (7):
+                        {
+                            game = false;
+                            break;
                         }
                     default:
                         {
@@ -170,7 +218,7 @@ namespace GuessNumber.VisualConsole
 
             }
             repo.WriteAccountToRep(person!);
-            
+
 
         }
 

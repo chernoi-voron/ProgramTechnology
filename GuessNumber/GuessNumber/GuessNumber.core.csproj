@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="GameOut\ConsoleInput.cs" />
+    <Compile Remove="GameOut\ConsoleOutput.cs" />
+  </ItemGroup>
+
 </Project>

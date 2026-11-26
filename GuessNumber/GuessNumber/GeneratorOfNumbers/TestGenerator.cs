@@ -10,5 +10,9 @@ namespace GuessNumber.core.GeneratorOfNumbers
         {
             return 1;
         }
+        public void SetRange(int min, int max)
+        {
+            return;
+        }
     }
 }

@@ -7,5 +7,6 @@ namespace GuessNumber.core.GeneratorOfNumbers
     public interface IGenerate
     {
          int Generate();
+        void SetRange(int min, int max);
     }
 }
