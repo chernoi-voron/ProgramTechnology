@@ -16,25 +16,20 @@ namespace GuessNumber.core.AuthService
         {
             if(rep is null) throw new ArgumentNullException(nameof(rep));
             _rep = rep;
-
         }
         public PersonAccount? Login(string login)
         {
-            var Account =  _rep.Read(login);
-            if(Account is null)
-            {
-                return Account;
-            }
-            else
-            {
-
-                return Account;
-            }
+            var Account =  _rep.ReadAccountFromRep(login);
+            return Account;
         }
-        public PersonAccount Register(string login,string name)
+        public PersonAccount? Register(string login,string name)
         {
-
-            return new PersonAccount(new Guid(), login, name);
+            var newAccount = new PersonAccount(Guid.NewGuid(), login, name);
+            if (_rep.WriteAccountToRep(newAccount))
+            {
+                return newAccount;
+            }
+            return null;
         }
     }
 }

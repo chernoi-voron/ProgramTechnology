@@ -8,6 +8,6 @@ namespace GuessNumber.core.AuthService
 {
     public interface IRegistration
     {
-        PersonAccount Register(string name, string login);
+        PersonAccount? Register(string login, string name);
     }
 }

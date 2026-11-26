@@ -16,7 +16,8 @@ namespace GuessNumber.core.Game
 
         int secret {  get; }
 
-        void RegisterEvent(Action<string> handler);
+        void RegisterEventNotify(Action<string> handler);
+        void UnregisterEventNotify(Action<string> handler);
         bool Guessing();
     }
 }

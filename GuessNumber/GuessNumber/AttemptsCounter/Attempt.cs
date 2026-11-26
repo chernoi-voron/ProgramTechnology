@@ -5,24 +5,34 @@ using System.Text;
 
 namespace GuessNumber.core.AttemptsCounter
 {
-    public class Attempt :IAttemptCounter
+    public class Attempt : IAttemptCounter
     {
         private ISettings _settings;
         public int UsedAttempt { get; private set; } = 0;
         public Attempt(ISettings settings)
         {
-            if(settings is null) {throw new ArgumentNullException(nameof(settings)); }
+            if (settings is null) { throw new ArgumentNullException(nameof(settings)); }
             _settings = settings;
         }
         public bool CanAttempt()
         {
             if (_settings.MaxAttempts is null) { return true; }
-            return _settings.MaxAttempts > UsedAttempt;
+            return _settings.MaxAttempts - UsedAttempt > 0;
         }
         public void SetAttempt()
         {
 
             UsedAttempt += _settings.Cost;
         }
-    }   
+        public void ResetAttempt()
+        {
+            UsedAttempt = 0;
+        }
+        public void SwitchMode(ISettings settings)
+        {
+            if (settings is null) { throw new ArgumentNullException(nameof(settings)); }
+            _settings = settings;
+        }
+    }
 }
+    

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GuessNumber.core.StatsService
 {
-    public class StatisticService
+    public class StatisticService : IStatisticService
     {
         private IPlayerStatsRepository _statsRepository;
         public StatisticService(IPlayerStatsRepository statsRepository)
@@ -17,26 +17,26 @@ namespace GuessNumber.core.StatsService
         public void RecordGame(Guid id, GameStatistic game)
         {
             if(game is null) { throw new ArgumentNullException(nameof(game)); }
-            if(_statsRepository.Get(id) is null)
+            if(_statsRepository.ReadStatsPlayerFromRep(id) is null)
             { 
-                _statsRepository.Save(id,new GlobalStatistics(0,0,0));
-                var newgoodstats = _statsRepository.Get(id);
+                _statsRepository.WriteStatsPlayerToRep(id,new GlobalStatistics(0,0,0));
+                var newgoodstats = _statsRepository.ReadStatsPlayerFromRep(id);
                 newgoodstats.Record(game);
-                _statsRepository.Save(id, newgoodstats);
+                _statsRepository.WriteStatsPlayerToRep(id, newgoodstats);
             }
             else
             {
-                _statsRepository.Get(id).Record(game);
-                _statsRepository.Save(id, _statsRepository.Get(id));
-
+                var existingStats = _statsRepository.ReadStatsPlayerFromRep(id);
+                existingStats.Record(game);
+                _statsRepository.WriteStatsPlayerToRep(id, existingStats);
             }
 
         }
-        public string PrintMyStatic(Guid id)
+        public string? PrintMyStats(Guid id)
         {
-            var tempstat = _statsRepository.Get(id);
-            if (tempstat is null) return "Stats dont avalaible";
-            return $"Wins: {tempstat.Wins} Strike: {tempstat.Streak} BestStrike: {tempstat.BestStrike}";
+            var tempstat = _statsRepository.ReadStatsPlayerFromRep(id);
+            if (tempstat is null) return null;
+            return $"Wins: {tempstat.Wins} Strike: {tempstat.Streak} BestStreak: {tempstat.BestStreak}";
         }
     }
 }

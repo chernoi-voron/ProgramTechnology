@@ -16,7 +16,9 @@ namespace GuessNumber.core.Game
 
         public int secret { get; }
 
-        public event Action<string>? NotifyCondition;
+        private event Action<string>? NotifyCondition;
+
+        public event EventHandler<GameWinEventArgs>? GameExodus;
 
         public GameSession(IAttemptCounter attempt, int secret)
         {
@@ -29,18 +31,19 @@ namespace GuessNumber.core.Game
             attemptCounter.SetAttempt();
             if (guess == secret)
             {
-                NotifyCondition?.Invoke($"You guess a number {secret}");
-                NotifyCondition?.Invoke($"Amount of attempts {attemptCounter.UsedAttempt}");
                 statistic = new(attemptCounter.UsedAttempt, true);
+                attemptCounter.ResetAttempt();
+                OnGameExodus(new GameWinEventArgs($"You guess a number {secret}", statistic ,true));
                 return true;
             }
             else if (guess < secret)
             {
-                NotifyCondition?.Invoke($"Number bigger");
+                NotifyCondition?.Invoke($"The guessed number is greater.");
                 if (!attemptCounter.CanAttempt())
                 {
-                    NotifyCondition?.Invoke($"The attempts have run out");
-
+                    statistic = new(attemptCounter.UsedAttempt, false);
+                    attemptCounter.ResetAttempt();
+                    OnGameExodus(new GameWinEventArgs($"The attempts have run out", statistic, false));
                     return true;
                 }
                 return false;
@@ -48,12 +51,13 @@ namespace GuessNumber.core.Game
             else
             {
 
-                NotifyCondition?.Invoke($"Number smaller");
+                NotifyCondition?.Invoke($"The guessed number is less.");
                 if (!attemptCounter.CanAttempt())
                 {
-                    NotifyCondition?.Invoke($"The attempts have run out");
-                    NotifyCondition?.Invoke($"Amount of attempts {attemptCounter.UsedAttempt}");
                     statistic = new(attemptCounter.UsedAttempt, false);
+                    attemptCounter.ResetAttempt();
+                    OnGameExodus(new GameWinEventArgs($"The attempts have run out", statistic, false));
+
                     return true;
                 }
                 return false;
@@ -61,9 +65,14 @@ namespace GuessNumber.core.Game
 
 
         }
-        public void RegisterEvent(Action<string> handler)
+        public void RegisterEventNotify(Action<string> handler)
         {
             NotifyCondition += handler;
         }
+        public void UnregisterEventNotify(Action<string> handler)
+        {
+            NotifyCondition -= handler;
+        }
+        private void OnGameExodus(GameWinEventArgs e) => GameExodus?.Invoke(this, e);
     }
 }

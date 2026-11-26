@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GuessNumber.core.Stats
+﻿namespace GuessNumber.core.Stats
 {
-    public record GameStatistic(int Attempts, bool LoseOrWin);
+    public record GameStatistic(int Attempts, bool IsWin);
 
 }

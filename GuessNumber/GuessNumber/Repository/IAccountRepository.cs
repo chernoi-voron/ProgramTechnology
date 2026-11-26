@@ -8,8 +8,8 @@ namespace GuessNumber.core.Repository
     public interface IAccountRepository
     {
 
-        bool Write(PersonAccount account);
+        bool WriteAccountToRep(PersonAccount account);
 
-        PersonAccount? Read(string Login);
+        PersonAccount? ReadAccountFromRep(string Login);
     }
 }

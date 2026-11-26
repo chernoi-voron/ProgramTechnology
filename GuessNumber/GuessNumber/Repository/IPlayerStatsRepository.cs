@@ -7,8 +7,8 @@ namespace GuessNumber.core.Repository
 {
     public interface IPlayerStatsRepository
     {
-        bool Save(Guid id,GlobalStatistics stats);
+        bool WriteStatsPlayerToRep(Guid id,GlobalStatistics stats);
 
-        GlobalStatistics? Get(Guid id);
+        GlobalStatistics? ReadStatsPlayerFromRep(Guid id);
     }
 }

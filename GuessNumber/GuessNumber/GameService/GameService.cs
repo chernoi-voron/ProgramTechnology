@@ -8,7 +8,7 @@ using System.Text;
 
 namespace GuessNumber.core.GameService
 {
-    public class GameService
+    public class GameService : IGameService
     {
         private IGameOutput _gameOutput;
         private IGameInput _gameInput;
@@ -25,10 +25,11 @@ namespace GuessNumber.core.GameService
             _session = session;
             _gameOutput = gameOutput;
             _gameInput = gameInput;
+            _session.RegisterEventNotify(_gameOutput.Print);
         }
         public GameStatistic Game()
         {
-            _session.RegisterEvent(_gameOutput.Print);
+          
             do
             {
                 _session.guess = _gameInput.Read();
@@ -38,7 +39,9 @@ namespace GuessNumber.core.GameService
         }
         public void Menu()
         {
-            while (true)
+
+            bool exit = true;
+            while (exit)
             {
                 _gameOutput.Print("Choose a menu item:\n 1- Start the Game 2 - Exit from game");
                 switch (_gameInput.Read())
@@ -46,10 +49,11 @@ namespace GuessNumber.core.GameService
                     case 1:
                         {
                             Game();
-                            return;
+                            break;
                         }
                     case 2:
                         {
+                            exit = false;
                             break;
                         }
                     default:
